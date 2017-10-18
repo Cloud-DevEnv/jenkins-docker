@@ -16,7 +16,7 @@
       <filter></filter>
     </groupMembershipStrategy>
     <managerDN>CN=ciflash,OU=CA,OU=SvcAccount,OU=P001,OU=ID,OU=Data,DC=ericsson,DC=se</managerDN>
-    <managerPasswordSecret>ePFlitmaNO/6OzeDgwH6BY/SILZa0GWuE9w9O3VdjwI=</managerPasswordSecret>
+    <managerPasswordSecret>Ng0T1IPa8lvTokmjgpcqvDPqgjsI5lqIK9Bhui9TV94=</managerPasswordSecret>
     <disableMailAddressResolver>false</disableMailAddressResolver>
     <displayNameAttributeName>displayname</displayNameAttributeName>
     <mailAddressAttributeName>mail</mailAddressAttributeName>
