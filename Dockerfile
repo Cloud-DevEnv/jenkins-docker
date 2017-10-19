@@ -14,6 +14,7 @@ COPY config/*.groovy /usr/share/jenkins/ref/init.groovy.d/
 
 # lets configure Jenkins with some defaults
 COPY config/*.xml /usr/share/jenkins/ref/
+COPY config/scriptApproval.xml /var/jenkins_home/scriptApproval.xml
 COPY config/config.xml /var/jenkins_home/config.xml
 COPY config/secrets/slave-to-master-security-kill-switch /usr/share/jenkins/ref/secrets/slave-to-master-security-kill-switch
 COPY config/secrets/hudson.util.Secret /usr/share/jenkins/ref/secrets/hudson.util.Secret
