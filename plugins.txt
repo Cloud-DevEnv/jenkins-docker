@@ -7,3 +7,4 @@ job-import-plugin:1.5
 jobConfigHistory:2.17
 next-build-number:1.4
 javadoc:1.1
+envinject:1.93.1

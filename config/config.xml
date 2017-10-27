@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <hudson>
   <disabledAdministrativeMonitors/>
-  <version>2.0</version>
+  <version>2.32.1</version>
   <numExecutors>1</numExecutors>
   <mode>NORMAL</mode>
   <useSecurity>true</useSecurity>
@@ -36,11 +36,13 @@
       <name>kubernetes</name>
       <templates>
         <org.csanchez.jenkins.plugins.kubernetes.PodTemplate>
+          <inheritFrom></inheritFrom>
           <name>base</name>
           <instanceCap>20</instanceCap>
           <idleMinutes>0</idleMinutes>
           <label>base</label>
           <serviceAccount>jenkins</serviceAccount>
+          <nodeSelector></nodeSelector>
           <volumes>
             <org.csanchez.jenkins.plugins.kubernetes.volumes.SecretVolume>
               <mountPath>/root/.ssh-git</mountPath>
@@ -66,10 +68,18 @@
           <containers>
             <org.csanchez.jenkins.plugins.kubernetes.ContainerTemplate>
               <name>jnlp</name>
-              <image>fabric8/jenkins-jnlp-client:${PROJECT_VERSION}</image>
+              <image>armdocker.rnd.ericsson.se/proj_adp/fabric8/jenkins-jnlp-client:2.2.311-01</image>
+              <privileged>false</privileged>
+              <alwaysPullImage>false</alwaysPullImage>
               <workingDir>/home/jenkins/</workingDir>
               <command></command>
               <args>${computer.jnlpmac} ${computer.name}</args>
+              <ttyEnabled>true</ttyEnabled>
+              <resourceRequestCpu></resourceRequestCpu>
+              <resourceRequestMemory></resourceRequestMemory>
+              <resourceLimitCpu></resourceLimitCpu>
+              <resourceLimitMemory></resourceLimitMemory>
+              <envVars/>
             </org.csanchez.jenkins.plugins.kubernetes.ContainerTemplate>
           </containers>
           <envVars>
@@ -86,6 +96,9 @@
               <value>${KUBERNETES_NAMESPACE}</value>
             </org.csanchez.jenkins.plugins.kubernetes.PodEnvVar>
           </envVars>
+          <annotations/>
+          <imagePullSecrets/>
+          <nodeProperties/>
         </org.csanchez.jenkins.plugins.kubernetes.PodTemplate>
         <org.csanchez.jenkins.plugins.kubernetes.PodTemplate>
           <inheritFrom>base</inheritFrom>
@@ -93,6 +106,7 @@
           <instanceCap>20</instanceCap>
           <idleMinutes>0</idleMinutes>
           <label>release</label>
+          <nodeSelector></nodeSelector>
           <volumes>
             <org.csanchez.jenkins.plugins.kubernetes.volumes.SecretVolume>
               <mountPath>/root/.gnupg</mountPath>
@@ -103,6 +117,16 @@
             <org.csanchez.jenkins.plugins.kubernetes.ContainerTemplate>
               <name>jnlp</name>
               <image>fabric8/jenkins-jnlp-client:${PROJECT_VERSION}</image>
+              <privileged>false</privileged>
+              <alwaysPullImage>false</alwaysPullImage>
+              <workingDir>/home/jenkins</workingDir>
+              <command>/bin/sh -c</command>
+              <args>cat</args>
+              <ttyEnabled>true</ttyEnabled>
+              <resourceRequestCpu></resourceRequestCpu>
+              <resourceRequestMemory></resourceRequestMemory>
+              <resourceLimitCpu></resourceLimitCpu>
+              <resourceLimitMemory></resourceLimitMemory>
               <envVars>
                 <org.csanchez.jenkins.plugins.kubernetes.ContainerEnvVar>
                   <key>SONATYPE_USERNAME</key>
@@ -145,6 +169,9 @@
               <value>${NEXUS_PASSWORD}</value>
             </org.csanchez.jenkins.plugins.kubernetes.PodEnvVar>
           </envVars>
+          <annotations/>
+          <imagePullSecrets/>
+          <nodeProperties/>
         </org.csanchez.jenkins.plugins.kubernetes.PodTemplate>
         <org.csanchez.jenkins.plugins.kubernetes.PodTemplate>
           <inheritFrom>base</inheritFrom>
@@ -152,6 +179,7 @@
           <instanceCap>20</instanceCap>
           <idleMinutes>0</idleMinutes>
           <label>docker</label>
+          <nodeSelector></nodeSelector>
           <volumes>
             <org.csanchez.jenkins.plugins.kubernetes.volumes.HostPathVolume>
               <mountPath>/var/run/docker.sock</mountPath>
@@ -166,6 +194,16 @@
             <org.csanchez.jenkins.plugins.kubernetes.ContainerTemplate>
               <name>jnlp</name>
               <image>fabric8/jenkins-jnlp-client:${PROJECT_VERSION}</image>
+              <privileged>false</privileged>
+              <alwaysPullImage>false</alwaysPullImage>
+              <workingDir>/home/jenkins</workingDir>
+              <command>/bin/sh -c</command>
+              <args>cat</args>
+              <ttyEnabled>true</ttyEnabled>
+              <resourceRequestCpu></resourceRequestCpu>
+              <resourceRequestMemory></resourceRequestMemory>
+              <resourceLimitCpu></resourceLimitCpu>
+              <resourceLimitMemory></resourceLimitMemory>
               <envVars>
                 <org.csanchez.jenkins.plugins.kubernetes.ContainerEnvVar>
                   <key>DOCKER_HOST</key>
@@ -174,30 +212,50 @@
               </envVars>
             </org.csanchez.jenkins.plugins.kubernetes.ContainerTemplate>
           </containers>
+          <envVars/>
+          <annotations/>
+          <imagePullSecrets/>
+          <nodeProperties/>
         </org.csanchez.jenkins.plugins.kubernetes.PodTemplate>
         <org.csanchez.jenkins.plugins.kubernetes.PodTemplate>
+          <inheritFrom></inheritFrom>
           <name>cli</name>
           <instanceCap>20</instanceCap>
           <idleMinutes>0</idleMinutes>
           <label>cli</label>
           <serviceAccount>jenkins</serviceAccount>
+          <nodeSelector></nodeSelector>
+          <volumes/>
           <containers>
             <org.csanchez.jenkins.plugins.kubernetes.ContainerTemplate>
               <name>cli</name>
               <image>fabric8/builder-clients:latest</image>
+              <privileged>false</privileged>
+              <alwaysPullImage>false</alwaysPullImage>
               <workingDir>/home/jenkins/</workingDir>
               <command>cat</command>
               <args></args>
               <ttyEnabled>true</ttyEnabled>
+              <resourceRequestCpu></resourceRequestCpu>
+              <resourceRequestMemory></resourceRequestMemory>
+              <resourceLimitCpu></resourceLimitCpu>
+              <resourceLimitMemory></resourceLimitMemory>
+              <envVars/>
             </org.csanchez.jenkins.plugins.kubernetes.ContainerTemplate>
           </containers>
+          <envVars/>
+          <annotations/>
+          <imagePullSecrets/>
+          <nodeProperties/>
         </org.csanchez.jenkins.plugins.kubernetes.PodTemplate>
         <org.csanchez.jenkins.plugins.kubernetes.PodTemplate>
+          <inheritFrom></inheritFrom>
           <name>maven</name>
           <instanceCap>20</instanceCap>
           <idleMinutes>0</idleMinutes>
           <label>maven</label>
           <serviceAccount>jenkins</serviceAccount>
+          <nodeSelector></nodeSelector>
           <volumes>
             <org.csanchez.jenkins.plugins.kubernetes.volumes.SecretVolume>
               <mountPath>/root/.m2</mountPath>
@@ -208,20 +266,32 @@
             <org.csanchez.jenkins.plugins.kubernetes.ContainerTemplate>
               <name>maven</name>
               <image>fabric8/maven-builder:2.2.297</image>
+              <privileged>false</privileged>
+              <alwaysPullImage>false</alwaysPullImage>
               <workingDir>/home/jenkins/</workingDir>
               <command>cat</command>
               <args></args>
               <ttyEnabled>true</ttyEnabled>
+              <resourceRequestCpu></resourceRequestCpu>
+              <resourceRequestMemory></resourceRequestMemory>
+              <resourceLimitCpu></resourceLimitCpu>
+              <resourceLimitMemory></resourceLimitMemory>
+              <envVars/>
             </org.csanchez.jenkins.plugins.kubernetes.ContainerTemplate>
           </containers>
           <envVars/>
+          <annotations/>
+          <imagePullSecrets/>
+          <nodeProperties/>
         </org.csanchez.jenkins.plugins.kubernetes.PodTemplate>
         <org.csanchez.jenkins.plugins.kubernetes.PodTemplate>
+          <inheritFrom></inheritFrom>
           <name>kubernetes</name>
           <instanceCap>20</instanceCap>
           <idleMinutes>0</idleMinutes>
           <label>kubernetes</label>
           <serviceAccount>jenkins</serviceAccount>
+          <nodeSelector></nodeSelector>
           <volumes>
             <org.csanchez.jenkins.plugins.kubernetes.volumes.HostPathVolume>
               <mountPath>/var/run/docker.sock</mountPath>
@@ -260,6 +330,16 @@
             <org.csanchez.jenkins.plugins.kubernetes.ContainerTemplate>
               <name>jnlp</name>
               <image>fabric8/jenkins-jnlp-client:${PROJECT_VERSION}</image>
+              <privileged>false</privileged>
+              <alwaysPullImage>false</alwaysPullImage>
+              <workingDir>/home/jenkins</workingDir>
+              <command>/bin/sh -c</command>
+              <args>cat</args>
+              <ttyEnabled>true</ttyEnabled>
+              <resourceRequestCpu></resourceRequestCpu>
+              <resourceRequestMemory></resourceRequestMemory>
+              <resourceLimitCpu></resourceLimitCpu>
+              <resourceLimitMemory></resourceLimitMemory>
               <envVars>
                 <org.csanchez.jenkins.plugins.kubernetes.ContainerEnvVar>
                   <key>DOMAIN</key>
@@ -352,10 +432,15 @@
               </envVars>
             </org.csanchez.jenkins.plugins.kubernetes.ContainerTemplate>
           </containers>
+          <envVars/>
+          <annotations/>
+          <imagePullSecrets/>
+          <nodeProperties/>
         </org.csanchez.jenkins.plugins.kubernetes.PodTemplate>
       </templates>
       <serverUrl>https://kubernetes.default</serverUrl>
       <skipTlsVerify>false</skipTlsVerify>
+      <namespace>fabric8</namespace>
       <jenkinsUrl>http://jenkins:80</jenkinsUrl>
       <jenkinsTunnel>jenkins-jnlp:50000</jenkinsTunnel>
       <containerCap>10</containerCap>
